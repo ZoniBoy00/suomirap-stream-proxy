@@ -48,4 +48,4 @@ Tests use a local fake upstream; they do not make radio requests.
 
 ## Rights and consent
 
-The software license applies only to this repository's code. RadioPlay/Bauer owns the upstream stream, artwork, and metadata. Deployment assumes the operator has authorization for this relay. The upstream request preserves the existing fixed `userConsentV2` parameter; that value is not collected from individual listeners and must not be represented as their consent.
+The software license applies only to this repository's code. RadioPlay/Bauer owns the upstream stream, artwork, and metadata. The upstream request preserves the existing fixed `userConsentV2` parameter; that value is not collected from individual listeners and must not be represented as their consent.
