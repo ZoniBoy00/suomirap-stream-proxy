@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily short-lived IP certificate renewal check
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=45m
+Persistent=true
+Unit=suomirap-certbot-renew.service
+
+[Install]
+WantedBy=timers.target
