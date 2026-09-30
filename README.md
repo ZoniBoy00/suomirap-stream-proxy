@@ -22,7 +22,7 @@ The IP-address TLS certificate is a short-lived Let's Encrypt certificate. It is
 - The upstream hostname and stream mounts are fixed in `src/stream-url.mjs`; requests cannot supply an arbitrary URL.
 - Only GET and CORS OPTIONS are accepted for `/stream`; other paths do not proxy.
 
-These are application-side safeguards, not a substitute for checking the VPS provider's traffic meter. The published Tietokettu Mini plan includes 1 TB/month; confirm how the provider accounts for ingress and egress if the plan changes.
+These are application-side safeguards, not a substitute for checking the VPS provider's traffic meter.
 
 ## Install
 
