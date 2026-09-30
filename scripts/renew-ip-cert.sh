@@ -11,7 +11,7 @@ fi
   -v /etc/letsencrypt:/etc/letsencrypt \
   -v /var/lib/letsencrypt:/var/lib/letsencrypt \
   -v /var/log/letsencrypt:/var/log/letsencrypt \
-  certbot/certbot:v5.4.0 renew --quiet
+  certbot/certbot:v5.4.0 renew --quiet --no-random-sleep-on-renew
 
 after=$(stat -c '%Y' "$certificate")
 if [ "$after" -gt "$before" ]; then

@@ -13,7 +13,7 @@ https://5.61.90.42:8443/stream?q=128
 
 The service requests `Icy-MetaData: 1` upstream and streams the same ICY-framed response to the browser. The browser-side Icecast player parses metadata from that audio connection and schedules it against playback. CORS is restricted to `https://suomirap-redirect.vercel.app`.
 
-The IP-address TLS certificate is a short-lived Let's Encrypt certificate. It must be automatically renewed; see `systemd/` and `scripts/renew-ip-cert.sh`.
+The IP-address TLS certificate is a short-lived Let's Encrypt certificate. It is renewed over HTTP-01 on public TCP port 80; the existing Nginx vhost must serve `/var/lib/suomirap-proxy/acme-webroot/.well-known/acme-challenge/`. The proxy itself listens on TCP port 8443.
 
 ## Resource and abuse limits
 
@@ -30,7 +30,7 @@ Requires Node.js 22.x, Docker (for the official Certbot image), systemd, and an 
 
 1. Install this repository at `/opt/suomirap-stream-proxy` and create a locked service account `suomirap-proxy`.
 2. Create `/var/lib/suomirap-proxy` owned by that account.
-3. Issue the initial IP certificate with Certbot 5.4+ using the `shortlived` profile and `tls-alpn-01` challenge. Use the certificate name `suomirap-proxy-ip`.
+3. Create `/var/lib/suomirap-proxy/acme-webroot/.well-known/acme-challenge` and issue the initial IP certificate with Certbot 5.4+ using the `shortlived` profile and HTTP-01 webroot challenge. Use the certificate name `suomirap-proxy-ip`.
 4. Install `systemd/suomirap-stream-proxy.service`, `systemd/suomirap-certbot-renew.service`, and `systemd/suomirap-certbot-renew.timer`; enable both services.
 5. Verify `https://5.61.90.42:8443/health`, CORS preflight, and a real stream request before switching the website.
 
