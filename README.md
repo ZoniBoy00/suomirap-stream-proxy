@@ -24,7 +24,7 @@ The IP-address TLS certificate is a short-lived Let's Encrypt certificate. It mu
 
 These are application-side safeguards, not a substitute for checking the VPS provider's traffic meter. The published Tietokettu Mini plan includes 1 TB/month; confirm how the provider accounts for ingress and egress if the plan changes.
 
-## Install on Tietokettu
+## Install
 
 Requires Node.js 22.x, Docker (for the official Certbot image), systemd, and an available public TCP port 8443. The TLS-ALPN-01 certificate validation uses public TCP port 443.
 
