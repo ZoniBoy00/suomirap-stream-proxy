@@ -18,7 +18,7 @@ The IP-address TLS certificate is a short-lived Let's Encrypt certificate. It is
 ## Resource and abuse limits
 
 - Maximum 8 simultaneous streams.
-- Monthly relay safety cap: 800,000,000,000 bytes, counting both bytes received from the radio source and bytes forwarded to listeners. The counter is persisted at `/var/lib/suomirap-proxy/usage.json` and resets by UTC calendar month.
+- Monthly relay safety cap: 800,000,000,000 bytes, counting both bytes received from the radio source and bytes forwarded to listeners. The counter is persisted at `/var/lib/suomirap-proxy/state/usage.json` and resets by UTC calendar month.
 - The upstream hostname and stream mounts are fixed in `src/stream-url.mjs`; requests cannot supply an arbitrary URL.
 - Only GET and CORS OPTIONS are accepted for `/stream`; other paths do not proxy.
 
@@ -26,10 +26,10 @@ These are application-side safeguards, not a substitute for checking the VPS pro
 
 ## Install
 
-Requires Node.js 22.x, Docker (for the official Certbot image), systemd, and an available public TCP port 8443. The TLS-ALPN-01 certificate validation uses public TCP port 443.
+Requires Node.js 22.x, Docker (for the official Certbot image), systemd, public TCP port 80 for IP-certificate HTTP-01 validation, and public TCP port 8443 for the HTTPS stream.
 
 1. Install this repository at `/opt/suomirap-stream-proxy` and create a locked service account `suomirap-proxy`.
-2. Create `/var/lib/suomirap-proxy` owned by that account.
+2. Keep `/var/lib/suomirap-proxy` root-owned and traversable by Nginx; create `/var/lib/suomirap-proxy/state` owned by the service account.
 3. Create `/var/lib/suomirap-proxy/acme-webroot/.well-known/acme-challenge` and issue the initial IP certificate with Certbot 5.4+ using the `shortlived` profile and HTTP-01 webroot challenge. Use the certificate name `suomirap-proxy-ip`.
 4. Install `systemd/suomirap-stream-proxy.service`, `systemd/suomirap-certbot-renew.service`, and `systemd/suomirap-certbot-renew.timer`; enable both services.
 5. Verify `https://5.61.90.42:8443/health`, CORS preflight, and a real stream request before switching the website.

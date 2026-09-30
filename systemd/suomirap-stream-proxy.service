@@ -13,7 +13,7 @@ Environment=PORT=8443
 Environment=PROXY_ALLOWED_ORIGINS=https://suomirap-redirect.vercel.app
 Environment=PROXY_MAX_CONCURRENT=8
 Environment=PROXY_MAX_MONTHLY_BYTES=800000000000
-Environment=PROXY_STATE_FILE=/var/lib/suomirap-proxy/usage.json
+Environment=PROXY_STATE_FILE=/var/lib/suomirap-proxy/state/usage.json
 LoadCredential=fullchain.pem:/etc/letsencrypt/live/suomirap-proxy-ip/fullchain.pem
 LoadCredential=privkey.pem:/etc/letsencrypt/live/suomirap-proxy-ip/privkey.pem
 ExecStart=/usr/bin/node /opt/suomirap-stream-proxy/src/server.mjs
@@ -31,7 +31,7 @@ ProtectKernelModules=true
 ProtectControlGroups=true
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 ReadOnlyPaths=/opt/suomirap-stream-proxy
-ReadWritePaths=/var/lib/suomirap-proxy
+ReadWritePaths=/var/lib/suomirap-proxy/state
 
 [Install]
 WantedBy=multi-user.target

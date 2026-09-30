@@ -7,7 +7,7 @@ import { pathToFileURL } from "node:url";
 import { buildStreamUrl } from "./stream-url.mjs";
 
 const DEFAULT_ORIGIN = "https://suomirap-redirect.vercel.app";
-const DEFAULT_STATE_FILE = "/var/lib/suomirap-proxy/usage.json";
+const DEFAULT_STATE_FILE = "/var/lib/suomirap-proxy/state/usage.json";
 const DEFAULT_MONTHLY_BYTES = 800_000_000_000;
 const ALLOWED_UPSTREAM_HEADERS = [
   "icy-metaint",
